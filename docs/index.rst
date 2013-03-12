@@ -12,4 +12,5 @@ Welcome to openstack-on-centos's documentation!
     :maxdepth: 2
 
     prepare
+    keystone
 
