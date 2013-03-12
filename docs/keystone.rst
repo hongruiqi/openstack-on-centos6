@@ -91,7 +91,7 @@ admin_token 为一密钥，用于操作keystone时的认证。
     
 修改 `/etc/keystone/keystone.conf` 中，`catalog->driver` 项为`keystone.catalog.backends.sql.Catalog`，即设置服务目录采用数据库存储。
 
-**定义`Identity`服务**
+**定义 `Identity` 服务**
 
 ::
 
@@ -106,7 +106,7 @@ admin_token 为一密钥，用于操作keystone时的认证。
     --internalurl=http://192.168.1.1:5000/v2.0 \
     --adminurl=http://192.168.1.1:35357/v2.0
 
-**定义`Compute`服务**
+**定义 `Compute` 服务**
 
 ::
 
