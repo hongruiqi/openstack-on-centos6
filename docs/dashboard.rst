@@ -1,0 +1,25 @@
+安装和配置 Dashboard
+==========
+
+安装 Dashboard
+----------
+
+::
+    
+    yum install memcached mod-wsgi openstack-dashboard
+    
+修改配置文件
+----------
+
+**/etc/openstack-dashboard/local_settings** ::
+
+    CACHE_BACKEND = 'memcached://127.0.0.1:11211/'
+    SWIFT_ENABLED = False
+    QUANTUM_ENABLED = False
+
+重启 Apache 服务器
+----------
+
+::
+
+    service httpd restart

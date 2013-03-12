@@ -17,4 +17,8 @@ Welcome to openstack-on-centos's documentation!
     hypervisor
     nova
     nova_compute
+    image_create
+    run
+    dashboard
+    problems
 
