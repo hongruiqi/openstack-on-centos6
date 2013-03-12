@@ -91,7 +91,7 @@ admin_token 为一密钥，用于操作keystone时的认证。
     
 修改 `/etc/keystone/keystone.conf` 中，`catalog->driver` 项为`keystone.catalog.backends.sql.Catalog`，即设置服务目录采用数据库存储。
 
-**定义 `Identity` 服务**
+**定义 Identity 服务**
 
 ::
 
@@ -106,7 +106,7 @@ admin_token 为一密钥，用于操作keystone时的认证。
     --internalurl=http://192.168.1.1:5000/v2.0 \
     --adminurl=http://192.168.1.1:35357/v2.0
 
-**定义 `Compute` 服务**
+**定义 Compute 服务**
 
 ::
 
@@ -121,7 +121,7 @@ admin_token 为一密钥，用于操作keystone时的认证。
     --internalurl='http://192.168.1.1:8774/v2/%(tenant_id)s' \
     --adminurl='http://192.168.1.1:8774/v2/%(tenant_id)s'
     
-**定义`Volume`服务**
+**定义 Volume 服务**
 
 ::
 
@@ -136,7 +136,7 @@ admin_token 为一密钥，用于操作keystone时的认证。
     --internalurl='http://192.168.1.1:8776/v1/%(tenant_id)s' \
     --adminurl='http://192.168.1.1:8776/v1/%(tenant_id)s'
 
-**定义`Image`服务**
+**定义 Image 服务**
 
 ::
 
@@ -151,7 +151,7 @@ admin_token 为一密钥，用于操作keystone时的认证。
     --internalurl='http://192.168.1.1:9292' \
     --adminurl='http://192.168.1.1:9292'
    
-**定义`EC2`兼容服务**
+**定义 EC2 兼容服务**
 
 ::
 
@@ -166,7 +166,7 @@ admin_token 为一密钥，用于操作keystone时的认证。
     --internalurl='http://192.168.1.1:8773/services/Cloud' \
     --adminurl='http://192.168.1.1:8773/services/Admin'
 
-**定义`Object Storage`服务**
+**定义 Object Storage 服务**
 
 ::
 
