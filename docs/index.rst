@@ -16,4 +16,5 @@ Welcome to openstack-on-centos's documentation!
     glance
     hypervisor
     nova
+    nova_compute
 
