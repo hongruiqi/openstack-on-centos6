@@ -6,17 +6,10 @@
 Welcome to openstack-on-centos's documentation!
 ===============================================
 
-Contents:
+目录:
 
 .. toctree::
     :maxdepth: 2
 
     prepare
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
 
