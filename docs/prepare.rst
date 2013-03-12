@@ -7,12 +7,12 @@
 更改 centos 源
 ~~~~~~~~~~
 
-备份系统自带配置
+备份系统自带配置 ::
 
     cd /etc/yum.repos.d
     mv CentOS-Base.repo.backup
     
-从 中科大镜像_ 下载相应版本 `CentOS-Base.repo` 文件，放入 `/etc/yum.repos.d`。
+从 中科大镜像_ 下载相应版本 `CentOS-Base.repo` 文件，放入 `/etc/yum.repos.d`。 ::
 
 .. _中科大镜像: http://lug.ustc.edu.cn/wiki/mirrors/help/centos
 
@@ -21,14 +21,14 @@
 添加 epel 仓库
 ~~~~~~~~~~
 
-下载安装 epel 配置文件
+下载安装 epel 配置文件 ::
     
     wget http://mirror.neu.edu.cn/fedora/epel/6/i386/epel-release-6-8.noarch.rpm
     rpm -i epel-release-6-8.noarch.rpm
     cd /etc/yum.repos.d
     
-将 `epel` 的 `enabled` 设置为 1，注释 `mirrorlist` ，`baseurl` 设置为
+将 `epel` 的 `enabled` 设置为 1，注释 `mirrorlist` ，`baseurl` 设置为 ::
 
     http://mirrors.ustc.edu.cn/fedora/epel/6/$basearch
     
-运行`yum makecache`生成缓存。
+运行 `yum makecache` 生成缓存。
