@@ -15,4 +15,5 @@ Welcome to openstack-on-centos's documentation!
     keystone
     glance
     hypervisor
+    nova
 
