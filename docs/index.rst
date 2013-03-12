@@ -13,4 +13,5 @@ Welcome to openstack-on-centos's documentation!
 
     prepare
     keystone
+    glance
 
