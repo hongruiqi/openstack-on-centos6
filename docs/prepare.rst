@@ -32,3 +32,22 @@
     http://mirrors.ustc.edu.cn/fedora/epel/6/$basearch
     
 运行 `yum makecache` 生成缓存。
+
+安装 MySQL 和 rabbitmq
+----------
+
+安装 MySQL
+~~~~~~~~~~
+
+::
+
+    yum install mysql mysql-server MySQL-python
+    service mysqld start
+    mysql_secure_installation # 设置root密码，删除空用户和测试表
+    
+安装 rabbitmq
+~~~~~~~~~~
+
+::
+    
+    yum install rabbitmq-server
