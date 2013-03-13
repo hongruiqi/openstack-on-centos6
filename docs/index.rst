@@ -21,5 +21,5 @@ Welcome to openstack-on-centos's documentation!
     run
     dashboard
     problems
-    image_create
+    image_make
 
