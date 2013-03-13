@@ -178,6 +178,17 @@ latex_elements = {
 
 # Additional stuff for the LaTeX preamble.
 #'preamble': '',
+'preamble': '''
+\usepackage{fontspec}
+\usepackage{xeCJK}
+\setmainfont{WenQuanYi Zen Hei Sharp}
+\setCJKmainfont[BoldFont=SimHei, ItalicFont=WenQuanYi Zen Hei Sharp]{WenQuanYi Zen Hei Sharp}
+\setCJKmonofont{WenQuanYi Zen Hei Mono}
+\setCJKsansfont{SimSun}
+\XeTeXlinebreaklocale "zh"
+''',
+'papersize': 'a4paper',
+'pointsize': '12pt',
 }
 
 # Grouping the document tree into LaTeX files. List of tuples
