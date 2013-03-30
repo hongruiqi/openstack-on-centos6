@@ -52,8 +52,8 @@
     #AUTH
     auth_strategy = keystone
     # 管理节点
-    rabbit_host=192.168.1.1
-    glance_host=192.168.1.1
+    rabbit_host=192.168.1.1  # 远程访问主节点上的 rabbitmq 服务
+    glance_host=192.168.1.1  # 主节点上的 glance 服务
     api_paste_config=/etc/nova/api-paste.ini
 
     #NETWORK
@@ -73,6 +73,7 @@
     # 外网 IP
     novncproxy_base_url=http://202.38.192.97:6080/vnc_auto.html
     # 本机内部 IP
+    # 设置为本机 IP，不可设置为 127.0.0.1，否则主节点上的 VNC_PROXY 无法访问
     vncserver_proxyclient_address=192.168.1.253
     vncserver_listen=192.168.1.253
     
@@ -90,5 +91,6 @@
 
 ::
 
-    service openstack-nova-compute restart
+    service openstack-nova-compute start # 启动 compute 服务
+    chkconfig openstack-nova-compute on  # 设置开机自动启动
 
