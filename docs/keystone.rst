@@ -60,7 +60,8 @@ admin_token 为一密钥，用于操作keystone时的认证。
 
 ::
 
-    service openstack-keystone start
+    service openstack-keystone start # 启动 keystone 服务
+    chkconfig openstack-keystone on  # 设置开机启动服务
 
 配置服务
 ----------
