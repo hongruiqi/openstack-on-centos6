@@ -27,9 +27,11 @@
     rpm -i epel-release-6-8.noarch.rpm
     cd /etc/yum.repos.d
     
-修改 `epel.repo`, 将 `[epel]` 下的 `enabled` 设置为 1，注释 `mirrorlist` ，`baseurl` 设置为 ::
+打开 `epel.repo`, 修改 `[epel]` 下配置 ::
 
-    http://mirrors.ustc.edu.cn/fedora/epel/6/$basearch
+    enabled = 1
+    baseurl = http://mirrors.ustc.edu.cn/fedora/epel/6/$basearch
+    # mirrorlist = ...  # 注释此项
     
 运行 `yum makecache` 生成缓存。
 
