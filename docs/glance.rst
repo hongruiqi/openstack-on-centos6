@@ -26,7 +26,7 @@
 修改配置文件
 ----------
 
-*/etc/glance/glance-api.conf* ::
+**/etc/glance/glance-api.conf** ::
 
     enable_v1_api=True
     enable_v2_api=True
@@ -43,14 +43,14 @@
     
     sql_connection = mysql://glance:glance@127.0.0.1:3306/glance
     
-*/etc/glance/glance-api-paste.ini* ::
+**/etc/glance/glance-api-paste.ini** ::
 
     [filter:authtoken]
     admin_tenant_name = service
     admin_user = glance
     admin_password = glance
     
-*glance-registry.conf* ::
+**glance-registry.conf** ::
 
     [keystone_authtoken]
     auth_host = 127.0.0.1
@@ -64,7 +64,7 @@
     
     sql_connection = mysql://glance:glance@127.0.0.1:3306/glance
     
-*glance-registry-paste.ini* ::
+**glance-registry-paste.ini** ::
     
     [pipeline:glance-registry-keystone]
     pipeline = authtoken context registryapp
