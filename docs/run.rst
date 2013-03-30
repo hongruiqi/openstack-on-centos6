@@ -33,7 +33,8 @@
 
 ::
 
-    nova boot --flavor 2 --image <cirros的image-id> --key_name=key --security_group default cirros
+    nova boot --flavor 2 --image <cirros的image-id> \
+        --key_name=key --security_group default cirros
     
 查看虚拟运行日志
 ----------
