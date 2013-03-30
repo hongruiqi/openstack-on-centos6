@@ -82,7 +82,7 @@ admin_token 为一密钥，用于操作keystone时的认证。
     keystone --token <admin_token> --endpoint http://127.0.0.1:35357/v2.0 \
         user-create --tenant-id <上一步中返回的tenant-id> --name admin --pass admin
     
-创建管理员角色(根据keystone默认的`policy.json`)
+创建管理员角色(根据keystone默认的 `policy.json`)
 
 ::
 
