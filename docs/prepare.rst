@@ -27,8 +27,9 @@
     rpm -i epel-release-6-8.noarch.rpm
     cd /etc/yum.repos.d
     
-打开 `epel.repo`, 修改 `[epel]` 下配置 ::
+打开 `epel.repo`, 修改配置 ::
 
+    [epel]
     enabled = 1
     baseurl = http://mirrors.ustc.edu.cn/fedora/epel/6/$basearch
     # mirrorlist = ...  # 注释此项
