@@ -14,14 +14,20 @@
 初始化数据库
 ~~~~~~~~~~
 
-修改`/etc/keystone/keystone.conf`中`sql->connection`项为
+修改 `/etc/keystone/keystone.conf` 中 `sql->connection` 项为
 
 ::    
 
     mysql://keystone:keystone@127.0.0.1:3306/keystone
     
 
-*因为mysql版本的问题，`127.0.0.1` 不可写为 `localhost`，且端口号不可忽略，否则连接不上数据库。所有mysql连接的配置都需注意。*
+.. note:: 因为mysql版本的问题，`127.0.0.1` 不可写为 `localhost`，且端口号不可忽略，否则连接不上数据库。所有mysql连接的配置都需注意。
+   
+   原因：
+   
+   - 当主机名为 `localhost` 时，mysql驱动会使用 unix_socks 进行连接，
+     此时需要在 uri 后添加 socks 文件的路径参数才能使用
+   - 在mysql旧版本中，若不指定版本号，则默认为 0
     
 在mysql中建立keystone数据库和用户，并赋予权限。
 
@@ -47,7 +53,7 @@ admin_token 为一密钥，用于操作keystone时的认证。
 
     keystone-manage db_sync
 
-如上命令在keystone数据库中创建相应数据表。
+此命令在keystone数据库中创建相应数据表。
 
 启动 keystone 服务
 ~~~~~~~~~~
@@ -66,120 +72,124 @@ admin_token 为一密钥，用于操作keystone时的认证。
 
 ::
 
-    keystone --token <admin_token> --endpoint http://127.0.0.1:35357/v2.0 tenant-create --name demo
+    keystone --token <admin_token> --endpoint http://127.0.0.1:35357/v2.0 \
+        tenant-create --name demo
     
 创建用户并与租户绑定
 
 ::
 
-    keystone --token <admin_token> --endpoint http://127.0.0.1:35357/v2.0 user-create --tenant-id <上一步中返回的tenant-id> --name admin --pass admin
+    keystone --token <admin_token> --endpoint http://127.0.0.1:35357/v2.0 \
+        user-create --tenant-id <上一步中返回的tenant-id> --name admin --pass admin
     
 创建管理员角色(根据keystone默认的`policy.json`)
 
 ::
 
-    keystone --token <admin_token> --endpoint http://127.0.0.1:35357/v2.0 role-create --name admin
+    keystone --token <admin_token> --endpoint http://127.0.0.1:35357/v2.0 \
+        role-create --name admin
  
 赋予demo中的admin用户管理员权限
 
 ::
 
-    keystone --token <admin_token> --endpoint http://127.0.0.1:35357/v2.0 user-role-add --tenant-id <tenant-id> --user-id <user-id> --role-id <role-id>
+    keystone --token <admin_token> --endpoint http://127.0.0.1:35357/v2.0 \
+        user-role-add --tenant-id <tenant-id> --user-id <user-id> --role-id <role-id>
 
 创建服务
 ~~~~~~~~~~
     
-修改 `/etc/keystone/keystone.conf` 中，`catalog->driver` 项为`keystone.catalog.backends.sql.Catalog`，即设置服务目录采用数据库存储。
+修改 `/etc/keystone/keystone.conf` 中，`catalog->driver` 项为 `keystone.catalog.backends.sql.Catalog`，即设置服务目录采用数据库存储。
 
 **定义 Identity 服务**
 
 ::
 
-    keystone --token <admin-token> --endpoint http://127.0.0.1:35357/v2.0 service-create --name=keystone --type=identity
+    keystone --token <admin-token> --endpoint http://127.0.0.1:35357/v2.0 \
+        service-create --name=keystone --type=identity
 
-    keystone --token <admin-token> \
-    --endpoint http://127.0.0.1:35357/v2.0 \
-    endpoint-create \
-    --region scut \
-    --service=id=<上一步返回的service-id> \
-    --publicurl=http://192.168.1.1:5000/v2.0 \
-    --internalurl=http://192.168.1.1:5000/v2.0 \
-    --adminurl=http://192.168.1.1:35357/v2.0
+    keystone --token <admin-token> --endpoint http://127.0.0.1:35357/v2.0 \
+        endpoint-create \
+        --region scut \
+        --service=id=<上一步返回的service-id> \
+        --publicurl=http://192.168.1.1:5000/v2.0 \
+        --internalurl=http://192.168.1.1:5000/v2.0 \
+        --adminurl=http://192.168.1.1:35357/v2.0
 
 **定义 Compute 服务**
 
 ::
 
-    keystone --token <admin-token> --endpoint http://127.0.0.1:35357/v2.0 service-create --name=nova --type=compute
+    keystone --token <admin-token> --endpoint http://127.0.0.1:35357/v2.0 \
+        service-create --name=nova --type=compute
 
-    keystone --token <admin-token> \
-    --endpoint http://127.0.0.1:35357/v2.0 \
-    endpoint-create \
-    --region scut \
-    --service=id=<上一步返回的service-id> \
-    --publicurl='http://192.168.1.1:8774/v2/%(tenant_id)s' \
-    --internalurl='http://192.168.1.1:8774/v2/%(tenant_id)s' \
-    --adminurl='http://192.168.1.1:8774/v2/%(tenant_id)s'
+    keystone --token <admin-token> --endpoint http://127.0.0.1:35357/v2.0 \
+        endpoint-create \
+        --region scut \
+        --service=id=<上一步返回的service-id> \
+        --publicurl='http://192.168.1.1:8774/v2/%(tenant_id)s' \
+        --internalurl='http://192.168.1.1:8774/v2/%(tenant_id)s' \
+        --adminurl='http://192.168.1.1:8774/v2/%(tenant_id)s'
     
 **定义 Volume 服务**
 
 ::
 
-    keystone --token <admin-token> --endpoint http://127.0.0.1:35357/v2.0 service-create --name=volume --type=volume
+    keystone --token <admin-token> --endpoint http://127.0.0.1:35357/v2.0 \
+        service-create --name=volume --type=volume
 
-    keystone --token <admin-token> \
-    --endpoint http://127.0.0.1:35357/v2.0 \
-    endpoint-create \
-    --region scut \
-    --service=id=<上一步返回的service-id> \
-    --publicurl='http://192.168.1.1:8776/v1/%(tenant_id)s' \
-    --internalurl='http://192.168.1.1:8776/v1/%(tenant_id)s' \
-    --adminurl='http://192.168.1.1:8776/v1/%(tenant_id)s'
+    keystone --token <admin-token> --endpoint http://127.0.0.1:35357/v2.0 \
+        endpoint-create \
+        --region scut \
+        --service=id=<上一步返回的service-id> \
+        --publicurl='http://192.168.1.1:8776/v1/%(tenant_id)s' \
+        --internalurl='http://192.168.1.1:8776/v1/%(tenant_id)s' \
+        --adminurl='http://192.168.1.1:8776/v1/%(tenant_id)s'
 
 **定义 Image 服务**
 
 ::
 
-    keystone --token <admin-token> --endpoint http://127.0.0.1:35357/v2.0 service-create --name=glance --type=image
+    keystone --token <admin-token> --endpoint http://127.0.0.1:35357/v2.0 \
+        service-create --name=glance --type=image
 
-    keystone --token <admin-token> \
-    --endpoint http://127.0.0.1:35357/v2.0 \
-    endpoint-create \
-    --region scut \
-    --service=id=<上一步返回的service-id> \
-    --publicurl='http://192.168.1.1:9292' \
-    --internalurl='http://192.168.1.1:9292' \
-    --adminurl='http://192.168.1.1:9292'
+    keystone --token <admin-token> --endpoint http://127.0.0.1:35357/v2.0 \
+        endpoint-create \
+        --region scut \
+        --service=id=<上一步返回的service-id> \
+        --publicurl='http://192.168.1.1:9292' \
+        --internalurl='http://192.168.1.1:9292' \
+        --adminurl='http://192.168.1.1:9292'
    
 **定义 EC2 兼容服务**
 
 ::
 
-    keystone --token <admin-token> --endpoint http://127.0.0.1:35357/v2.0 service-create --name=ec2 --type=ec2
+    keystone --token <admin-token> --endpoint http://127.0.0.1:35357/v2.0 \
+        service-create --name=ec2 --type=ec2
 
-    keystone --token <admin-token> \
-    --endpoint http://127.0.0.1:35357/v2.0 \
-    endpoint-create \
-    --region scut \
-    --service=id=<上一步返回的service-id> \
-    --publicurl='http://192.168.1.1:8773/services/Cloud' \
-    --internalurl='http://192.168.1.1:8773/services/Cloud' \
-    --adminurl='http://192.168.1.1:8773/services/Admin'
+    keystone --token <admin-token> --endpoint http://127.0.0.1:35357/v2.0 \
+        endpoint-create \
+        --region scut \
+        --service=id=<上一步返回的service-id> \
+        --publicurl='http://192.168.1.1:8773/services/Cloud' \
+        --internalurl='http://192.168.1.1:8773/services/Cloud' \
+        --adminurl='http://192.168.1.1:8773/services/Admin'
 
 **定义 Object Storage 服务**
 
 ::
 
-    keystone --token <admin-token> --endpoint http://127.0.0.1:35357/v2.0 service-create --name=swift --type=object-store
+    keystone --token <admin-token> --endpoint http://127.0.0.1:35357/v2.0 \
+        service-create --name=swift --type=object-store
 
-    keystone --token <admin-token> \
-    --endpoint http://127.0.0.1:35357/v2.0 \
-    endpoint-create \
-    --region scut \
-    --service=id=<上一步返回的service-id> \
-    --publicurl='http://192.168.1.1:8888/v1/AUTH_%(tenant_id)s' \
-    --internalurl='http://192.168.1.1:8888/v1/AUTH_%(tenant_id)s' \
-    --adminurl='http://192.168.1.1:8888/v1'
+    keystone --token <admin-token> --endpoint http://127.0.0.1:35357/v2.0 \
+        endpoint-create \
+        --region scut \
+        --service=id=<上一步返回的service-id> \
+        --publicurl='http://192.168.1.1:8888/v1/AUTH_%(tenant_id)s' \
+        --internalurl='http://192.168.1.1:8888/v1/AUTH_%(tenant_id)s' \
+        --adminurl='http://192.168.1.1:8888/v1'
 
 验证 Identify 服务安装
 ~~~~~~~~~~
@@ -188,14 +198,18 @@ admin_token 为一密钥，用于操作keystone时的认证。
 
 ::
 
-    keystone --os-username=admin --os-password=admin --os-auth-url=http://127.0.0.1:35357/v2.0 token-get
+    keystone --os-username=admin --os-password=admin \
+        --os-auth-url=http://127.0.0.1:35357/v2.0 token-get
     
 验证用户在指定的 tenant 上是否有明确定义的角色。
 
 ::
 
-    keystone --os-username=admin --os-password=admin --os-tenant-name=demo --os-auth-url=http://127.0.0.1:35357/v2.0 token-get
+    keystone --os-username=admin --os-password=admin \
+        --os-tenant-name=demo --os-auth-url=http://127.0.0.1:35357/v2.0 token-get
     
+此命令根据 username, password, tenant-name 换取访问 token
+
 可以将以上参数设置为环境变量，不用每次输入
 
 ::
@@ -215,5 +229,5 @@ admin_token 为一密钥，用于操作keystone时的认证。
 
 ::    
 
-    keystone user-list
+    keystone user-list   # 列举所有用户
 
