@@ -171,7 +171,7 @@ admin_token 为一密钥，用于操作keystone时的认证。
     keystone --token <admin-token> --endpoint http://127.0.0.1:35357/v2.0 \
         endpoint-create \
         --region scut \
-        --service=id=<上一步返回的service-id> \
+        --service-id=<上一步返回的service-id> \
         --publicurl='http://192.168.1.1:8773/services/Cloud' \
         --internalurl='http://192.168.1.1:8773/services/Cloud' \
         --adminurl='http://192.168.1.1:8773/services/Admin'
