@@ -98,7 +98,7 @@
     export OS_AUTH_URL=http://127.0.0.1:5000/v2.0/
     export OS_REGION_NAME=scut
     
-(上传的镜像属于admin用户的demo tenant）
+(通过以上环境变量调用 glance，上传的镜像属于admin用户的demo tenant）
 
 上传内核 ::
 
