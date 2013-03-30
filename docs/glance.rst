@@ -14,6 +14,8 @@
 配置 glance 数据库
 ~~~~~~~~~~
 
+在mysql中建立 glance 数据库和用户，并赋予权限。
+
 ::
 
     mysql -u root -p
@@ -73,8 +75,10 @@
 ::
 
     glance-manage db_sync
-    service glance-registry restart
-    service glance-api restart
+    service glance-registry start  # 启动服务  
+    service glance-api start
+    chkconfig glance-registry on   # 设置开机启动服务
+    chkconfig glance-api on
 
 验证 Glance 安装
 ----------
@@ -83,7 +87,7 @@
 
     mkdir /tmp/images
     cd /tmp/images
-    wget http://smoser.brickies.net/ubuntu/ttylinux-uec/ttylinux-uec-amd64-12.1_2.6.35-22_1.tar.gz
+    wget -c http://smoser.brickies.net/ubuntu/ttylinux-uec/ttylinux-uec-amd64-12.1_2.6.35-22_1.tar.gz
     tar -zxvf ttylinux-uec-amd64-12.1_2.6.35-22_1.tar.gz
     
 设置环境变量 ::
@@ -94,6 +98,8 @@
     export OS_AUTH_URL=http://127.0.0.1:5000/v2.0/
     export OS_REGION_NAME=scut
     
+(上传的镜像属于admin用户的demo tenant）
+
 上传内核 ::
 
     glance image-create --name="tty-linux-kernel" \
@@ -114,6 +120,10 @@
     --property kernel_id=<上面返回的kernel_id> \
     ramdisk_id=<上面返回的ramdisk_id> < ttylinux-uec-amd64-12.1_2.6.35-22_1.img
     
-使用 image-list 命令应该显示三个镜像 ::
+.. note:: 磁盘格式为 aki, ari, ami 时，容器格式需与磁盘格式相同
+
+运行 image-list 命令列举镜像 ::
 
     glance image-list
+    
+命令应返回三个镜像
