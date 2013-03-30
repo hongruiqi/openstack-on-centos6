@@ -20,6 +20,7 @@
 若模块未加载
 
 ::
+
     modprobe kvm
     modprobe kvm-intel # for intel cpu
     modprobe kvm-amd   # for amd cpu
