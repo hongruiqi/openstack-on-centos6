@@ -111,7 +111,7 @@ admin_token 为一密钥，用于操作keystone时的认证。
     keystone --token <admin-token> --endpoint http://127.0.0.1:35357/v2.0 \
         endpoint-create \
         --region scut \
-        --service=id=<上一步返回的service-id> \
+        --service-id=<上一步返回的service-id> \
         --publicurl=http://192.168.1.1:5000/v2.0 \
         --internalurl=http://192.168.1.1:5000/v2.0 \
         --adminurl=http://192.168.1.1:35357/v2.0
@@ -126,7 +126,7 @@ admin_token 为一密钥，用于操作keystone时的认证。
     keystone --token <admin-token> --endpoint http://127.0.0.1:35357/v2.0 \
         endpoint-create \
         --region scut \
-        --service=id=<上一步返回的service-id> \
+        --service-id=<上一步返回的service-id> \
         --publicurl='http://192.168.1.1:8774/v2/%(tenant_id)s' \
         --internalurl='http://192.168.1.1:8774/v2/%(tenant_id)s' \
         --adminurl='http://192.168.1.1:8774/v2/%(tenant_id)s'
@@ -141,7 +141,7 @@ admin_token 为一密钥，用于操作keystone时的认证。
     keystone --token <admin-token> --endpoint http://127.0.0.1:35357/v2.0 \
         endpoint-create \
         --region scut \
-        --service=id=<上一步返回的service-id> \
+        --service-id=<上一步返回的service-id> \
         --publicurl='http://192.168.1.1:8776/v1/%(tenant_id)s' \
         --internalurl='http://192.168.1.1:8776/v1/%(tenant_id)s' \
         --adminurl='http://192.168.1.1:8776/v1/%(tenant_id)s'
@@ -156,7 +156,7 @@ admin_token 为一密钥，用于操作keystone时的认证。
     keystone --token <admin-token> --endpoint http://127.0.0.1:35357/v2.0 \
         endpoint-create \
         --region scut \
-        --service=id=<上一步返回的service-id> \
+        --service-id=<上一步返回的service-id> \
         --publicurl='http://192.168.1.1:9292' \
         --internalurl='http://192.168.1.1:9292' \
         --adminurl='http://192.168.1.1:9292'
@@ -186,7 +186,7 @@ admin_token 为一密钥，用于操作keystone时的认证。
     keystone --token <admin-token> --endpoint http://127.0.0.1:35357/v2.0 \
         endpoint-create \
         --region scut \
-        --service=id=<上一步返回的service-id> \
+        --service-id=<上一步返回的service-id> \
         --publicurl='http://192.168.1.1:8888/v1/AUTH_%(tenant_id)s' \
         --internalurl='http://192.168.1.1:8888/v1/AUTH_%(tenant_id)s' \
         --adminurl='http://192.168.1.1:8888/v1'
