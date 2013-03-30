@@ -163,3 +163,4 @@
 
     nova image-list
 
+通过 nova 命令访问 glance 服务，获取 admin 用户在 demo tenant 所有的镜像。
