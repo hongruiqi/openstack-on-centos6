@@ -10,7 +10,8 @@ Windows 7
 
 下载虚拟机驱动 ::
 
-    wget http://alt.fedoraproject.org/pub/alt/virtio-win/latest/images/bin/virtio-win-0.1-52.iso
+    wget -c \
+        http://alt.fedoraproject.org/pub/alt/virtio-win/latest/images/bin/virtio-win-0.1-52.iso
     
 启动虚拟机 ::
 
@@ -21,7 +22,9 @@ Windows 7
         -net user 
         -nographic -vnc :0
     
-其中 `windows7.iso` 为 Win7 安装镜像地址，需从别处下载。然后使用 `vncviewer` 访问相应 `-vnc` 选项端口进行系统安装。安装后将 `win7.img` 上传即可。 
+其中 `windows7.iso` 为 Win7 安装镜像地址，需从别处下载。然后使用 `vncviewer` 访问相应 `-vnc` 选项端口进行系统安装。
+安装时，需先加载相应的虚拟驱动，否则无法看到磁盘。
+安装后将 `win7.img` 上传即可。 
 
 ::
 

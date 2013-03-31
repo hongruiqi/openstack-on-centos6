@@ -7,7 +7,7 @@ Welcome to openstack-on-centos's documentation!
 ===============================================
 
 .. toctree::
-    :maxdepth: 2
+    :maxdepth: 1
 
     prepare
     keystone
@@ -15,8 +15,10 @@ Welcome to openstack-on-centos's documentation!
     hypervisor
     nova
     nova_compute
+    nova_volume
     run
     dashboard
+    swift
     problems
     image_make
 
