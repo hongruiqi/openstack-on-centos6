@@ -142,7 +142,7 @@
 ::
 
     dd if=/dev/zero of=swift.img bs=10M count=1024
-    iosetup --show -f swift.img
+    losetup --show -f swift.img
     mkfs.xfs -i size=1024 /dev/loop0
     mkdir -p /srv/node/loop0
     mount /dev/loop0 /srv/node/loop0
